@@ -1,0 +1,94 @@
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+.pnp
+.pnp.js
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ==========================================
+# Build output
+# ==========================================
+dist/
+dist-ssr/
+build/
+*.local
+
+# ==========================================
+# Environment variables — KABHI commit nahi
+# .env.local me real Firebase keys hain
+# .env.example sirf template hai, wo commit hota hai
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Firebase
+# .firebaserc project-specific hai — har machine par alag
+# firebase.json / rules / indexes commit hote hain (wo project ke hisaab se nahi badalte)
+# ==========================================
+.firebaserc
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+database-debug.log*
+pubsub-debug.log*
+
+# ==========================================
+# Tests / Playwright
+# ==========================================
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.cache/
+# Saved auth state — isme login session hota hai, kabhi commit nahi
+playwright/.auth/
+*.playwright-artifacts-*
+
+# ==========================================
+# Logs
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+run.log
+
+# Coverage
+coverage/
+*.lcov
+.nyc_output/
+
+# ==========================================
+# Editor / OS
+# ==========================================
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swo
+*~
+
+# ==========================================
+# Caching (TypeScript / Vite / oxlint)
+# ==========================================
+*.tsbuildinfo
+.tsbuildinfo
+.oxlintcache
+.vite/

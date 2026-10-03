@@ -35,7 +35,7 @@ export default function HomePage() {
   return (
     <PageShell>
       <section className="overflow-hidden rounded-2xl bg-gradient-to-r from-red-600 to-orange-500 px-6 py-10 text-white sm:px-10">
-        <h1 className="text-3xl font-black sm:text-4xl">Order food online</h1>
+        <h1 className="text-3xl font-black sm:text-4xl">Zomato Clone Hub</h1>
         <p className="mt-2 max-w-lg text-white/90">
           Best restaurants near you, fast delivery aur transparent pricing.
         </p>

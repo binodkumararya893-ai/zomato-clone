@@ -20,9 +20,9 @@ export function RequireAdmin({ children }: { children: ReactNode }) {
   if (!user) return <Navigate to="/login" replace state={{ from: location.pathname }} />
   if (profile?.role !== 'admin') {
     return (
-      <div className="mx-auto max-w-md rounded-xl bg-white p-10 text-center ring-1 ring-gray-100">
-        <p className="font-semibold text-gray-900">Access denied</p>
-        <p className="mt-1 text-sm text-gray-500">Ye page sirf admins ke liye hai.</p>
+      <div className="mx-auto max-w-md rounded-xl bg-white p-10 text-center ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+        <p className="font-semibold text-gray-900 dark:text-gray-100">Access denied</p>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Ye page sirf admins ke liye hai.</p>
       </div>
     )
   }

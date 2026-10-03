@@ -70,38 +70,38 @@ export default function RestaurantPage() {
 
   return (
     <PageShell>
-      <nav className="mb-4 text-sm text-gray-500">
+      <nav className="mb-4 text-sm text-gray-500 dark:text-gray-400">
         <Link to="/" className="hover:text-red-600">
           Restaurants
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900">{r.name}</span>
+        <span className="text-gray-900 dark:text-gray-100">{r.name}</span>
       </nav>
 
-      <header className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
-        <div className="h-48 w-full bg-gray-100 sm:h-56">
+      <header className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+        <div className="h-48 w-full bg-gray-100 sm:h-56 dark:bg-gray-800">
           {r.imageUrl && (
             <img src={r.imageUrl} alt={r.name} className="h-full w-full object-cover" />
           )}
         </div>
         <div className="p-5">
-          <h1 className="text-2xl font-bold text-gray-900">{r.name}</h1>
-          <p className="mt-1 text-sm text-gray-600">{r.cuisines.join(', ')}</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{r.name}</h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{r.cuisines.join(', ')}</p>
           <div className="mt-3 flex flex-wrap items-center gap-4 text-sm">
-            <span className="flex items-center gap-1 font-semibold text-gray-900">
+            <span className="flex items-center gap-1 font-semibold text-gray-900 dark:text-gray-100">
               ★ {r.rating.toFixed(1)}
-              <span className="font-normal text-gray-500">
+              <span className="font-normal text-gray-500 dark:text-gray-400">
                 ({formatCount(r.ratingCount)} ratings)
               </span>
             </span>
-            <span className="text-gray-500">{formatINR(r.priceForTwo)} for two</span>
-            <span className="text-gray-500">{r.deliveryTimeMinutes} min delivery</span>
-            <span className="text-gray-500">
+            <span className="text-gray-500 dark:text-gray-400">{formatINR(r.priceForTwo)} for two</span>
+            <span className="text-gray-500 dark:text-gray-400">{r.deliveryTimeMinutes} min delivery</span>
+            <span className="text-gray-500 dark:text-gray-400">
               {r.location.area}, {r.location.city}
             </span>
           </div>
           {r.offer && (
-            <p className="mt-3 inline-block rounded-lg bg-orange-50 px-3 py-1.5 text-sm font-medium text-orange-700">
+            <p className="mt-3 inline-block rounded-lg bg-orange-50 px-3 py-1.5 text-sm font-medium text-orange-700 dark:bg-orange-950/50 dark:text-orange-300">
               🏷️ {r.offer}
             </p>
           )}
@@ -111,8 +111,8 @@ export default function RestaurantPage() {
       <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_360px]">
         <div className="space-y-6">
           {categories.map((category) => (
-            <section key={category} className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
-              <h2 className="mb-1 text-lg font-bold text-gray-900">{category}</h2>
+            <section key={category} className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+              <h2 className="mb-1 text-lg font-bold text-gray-900 dark:text-gray-100">{category}</h2>
               <div>
                 {items
                   .filter((item) => item.category === category)

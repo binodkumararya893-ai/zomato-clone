@@ -4,13 +4,16 @@
   --color-brand-red: #e23744;
 }
 
+/* Class-based dark mode — html par `dark` toggle hota hai, system preference par nahi. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-[#f7f7f7] text-gray-900 antialiased;
+    @apply bg-[#f7f7f7] text-gray-900 antialiased dark:bg-black dark:text-gray-100;
     font-family:
       'Inter',
       system-ui,

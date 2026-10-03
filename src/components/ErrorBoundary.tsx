@@ -26,8 +26,8 @@ export class ErrorBoundary extends Component<Props, State> {
 
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#f7f7f7] p-6">
-        <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-          <h1 className="text-xl font-bold text-gray-900">Kuch toot gaya</h1>
+        <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Kuch toot gaya</h1>
           <p className="mt-2 text-sm text-gray-600">
             {error.message || 'Unexpected error. Browser console me details dekho.'}
           </p>

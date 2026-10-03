@@ -21,10 +21,10 @@ export default function CartPage() {
 
   return (
     <PageShell>
-      <h1 className="mb-4 text-2xl font-bold text-gray-900">Your cart</h1>
+      <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">Your cart</h1>
       <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-        <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
-          <h2 className="font-semibold text-gray-900">Items from {lines[0]?.restaurantName}</h2>
+        <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+          <h2 className="font-semibold text-gray-900 dark:text-gray-100">Items from {lines[0]?.restaurantName}</h2>
           <ul className="mt-3 space-y-2 text-sm text-gray-600">
             {lines.map((line) => (
               <li key={line.itemId} className="flex justify-between">

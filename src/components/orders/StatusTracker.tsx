@@ -29,16 +29,16 @@ export function StatusTracker({ status }: { status: OrderStatus }) {
                   className={`flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold transition-colors ${
                     reached
                       ? isCurrent
-                        ? 'bg-red-600 text-white ring-4 ring-red-100'
+                        ? 'bg-red-600 text-white ring-4 ring-red-100 dark:ring-red-950'
                         : 'bg-red-600 text-white'
-                      : 'bg-gray-200 text-gray-400'
+                      : 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500'
                   }`}
                 >
                   {reached ? '✓' : index + 1}
                 </span>
                 <span
                   className={`whitespace-nowrap text-[10px] ${
-                    isCurrent ? 'font-semibold text-red-700' : 'text-gray-500'
+                    isCurrent ? 'font-semibold text-red-700 dark:text-red-400' : 'text-gray-500 dark:text-gray-400'
                   }`}
                 >
                   {step.label}
@@ -47,7 +47,7 @@ export function StatusTracker({ status }: { status: OrderStatus }) {
               {index < STEPS.length - 1 && (
                 <span
                   className={`mx-1 h-0.5 flex-1 -translate-y-3 ${
-                    index < currentIndex ? 'bg-red-600' : 'bg-gray-200'
+                    index < currentIndex ? 'bg-red-600' : 'bg-gray-200 dark:bg-gray-700'
                   }`}
                 />
               )}

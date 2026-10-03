@@ -26,7 +26,7 @@ export function MenuItemRow({ item, restaurantName }: { item: MenuItem; restaura
   }
 
   return (
-    <article className="flex gap-4 border-b border-gray-100 py-5 last:border-b-0">
+    <article className="flex gap-4 border-b border-gray-100 py-5 last:border-b-0 dark:border-gray-800">
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
           <span
@@ -37,15 +37,15 @@ export function MenuItemRow({ item, restaurantName }: { item: MenuItem; restaura
           >
             <span className={`h-2 w-2 rounded-full ${item.isVeg ? 'bg-green-600' : 'bg-red-600'}`} />
           </span>
-          <h3 className="font-medium text-gray-900">{item.name}</h3>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100">{item.name}</h3>
           {item.isPopular && (
-            <span className="rounded bg-orange-100 px-1.5 py-0.5 text-[11px] font-medium text-orange-700">
+            <span className="rounded bg-orange-100 px-1.5 py-0.5 text-[11px] font-medium text-orange-700 dark:bg-orange-950/50 dark:text-orange-300">
               Bestseller
             </span>
           )}
         </div>
-        <p className="mt-1 text-sm font-medium text-gray-700">{formatINR(item.price)}</p>
-        <p className="mt-1 line-clamp-2 text-sm text-gray-500">{item.description}</p>
+        <p className="mt-1 text-sm font-medium text-gray-700 dark:text-gray-300">{formatINR(item.price)}</p>
+        <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">{item.description}</p>
       </div>
 
       <div className="flex w-32 shrink-0 flex-col items-center gap-2">

@@ -70,16 +70,16 @@ export default function AdminPage() {
 
   return (
     <PageShell>
-      <div className="mx-auto max-w-xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
-        <h1 className="text-xl font-bold text-gray-900">Admin console</h1>
-        <p className="mt-1 text-sm text-gray-500">
+      <div className="mx-auto max-w-xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+        <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Admin console</h1>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
           Demo data seed karo aur images Firebase Storage me upload karo (
           {Math.round(MAX_IMAGE_BYTES / 1024 / 1024)}MB tak).
         </p>
 
-        <div className="mt-5 rounded-xl bg-gray-50 p-4 ring-1 ring-gray-100">
-          <p className="text-sm font-medium text-gray-900">Step 1 — Demo data</p>
-          <p className="mt-1 text-sm text-gray-500">
+        <div className="mt-5 rounded-xl bg-gray-50 p-4 ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Step 1 — Demo data</p>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             8 restaurants + unke menu items Firestore me likhta hai. Ye button har baar safely overwrite karta hai.
           </p>
           <Button className="mt-3" loading={seeding} onClick={() => void handleSeed()}>
@@ -88,7 +88,7 @@ export default function AdminPage() {
           {seedNote && <p className="mt-2 text-sm text-green-700">{seedNote}</p>}
         </div>
 
-        <p className="mt-6 text-sm font-medium text-gray-900">Step 2 — Image upload</p>
+        <p className="mt-6 text-sm font-medium text-gray-900 dark:text-gray-100">Step 2 — Image upload</p>
 
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <Select
@@ -143,7 +143,7 @@ export default function AdminPage() {
             <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
               <div className="h-full bg-red-600 transition-all" style={{ width: `${progress}%` }} />
             </div>
-            <p className="mt-1 text-xs text-gray-500">Uploading… {progress}%</p>
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Uploading… {progress}%</p>
           </div>
         )}
 

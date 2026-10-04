@@ -90,24 +90,13 @@ export async function recordSale(lines: CartLine[], restaurantName: string): Pro
 }
 
 /**
- * Top most-sold items. Sirf un items ka data chahiye jo document me denormalized
- * hai — isliye display ke liye restaurant + item dono ke naam store karte hain,
- * extra fetch ki zarurat nahi padti.
- */
-export async function fetchMostSoldItems(limitCount = 10): Promise<SoldItem[]> {
-  const snap = await getDocs(
-    query(collection(db, 'itemSales'), orderBy('soldCount', 'desc'), limit(limitCount)),
-  )
-  return snap.docs.map((d) => docToSoldItem(d.id, d.data()))
-}
-
-/**
  * Har restaurant ke apne top most-sold items — `restaurantId → SoldItem[]`.
  *
  * Ek hi query chalta hai aur result memory me group ho jaata hai, isliye har card
  * ke liye alag fetch nahi (8 restaurants = 8 queries nahi).
  *
- * `maxItems` se har restaurant me kitne items rakhte hain wo control hota hai.
+ * `perRestaurant` har restaurant me kitne items rakhte hain — wo ceiling hai,
+ * guarantee nahi. Jis item ka counter hi nahi hai woh list me aata hi nahi.
  *
  * Note: ye saare counters padhta hai (`maxDocs` tak), isliye catalogue bade hone
  * par scale nahi karega — uske liye per-restaurant query ya Cloud Function chahiye.

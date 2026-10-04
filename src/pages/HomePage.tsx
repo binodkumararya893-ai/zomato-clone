@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { fetchRestaurants } from '@/services/restaurants'
 import { useAsync } from '@/hooks/useAsync'
 import { RestaurantCard } from '@/components/restaurant/RestaurantCard'
+import { MostSoldRail } from '@/components/sales/MostSoldRail'
 import { EmptyState, ErrorState, PageShell, SkeletonCard } from '@/components/ui/Feedback'
 import { Select } from '@/components/ui/Form'
 import { CUISINES } from '@/types'
@@ -48,6 +49,8 @@ export default function HomePage() {
           className="mt-6 w-full max-w-md rounded-lg bg-white px-4 py-3 text-gray-900 shadow-sm placeholder:text-gray-400 focus:outline-2 focus:outline-white"
         />
       </section>
+
+      <MostSoldRail />
 
       <div className="mt-6 flex flex-wrap items-end gap-3">
         <div className="w-44">

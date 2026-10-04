@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { placeOrder } from '@/services/orders'
+import { recordSale } from '@/services/sales'
 import { useAuth } from '@/hooks/useAuth'
 import { useCart } from '@/hooks/useCart'
 import { isRazorpayConfigured, openRazorpayCheckout } from '@/lib/razorpay'
@@ -122,6 +123,11 @@ export default function CheckoutPage() {
         },
         paymentStatus,
       )
+
+      // Counter update best-effort hai aur navigation ko block nahi karta —
+      // fail ho jaye to order phir bhi successful rehta hai, sirf
+      // leaderboard ka count miss hoga.
+      void recordSale(lines, restaurantName ?? '')
 
       clearCart()
       navigate('/orders?placed=1')

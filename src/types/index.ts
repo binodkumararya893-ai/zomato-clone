@@ -101,6 +101,23 @@ export interface Order {
   createdAt: unknown
 }
 
+/**
+ * Denormalized sales counter — `itemSales/{restaurantId}__{itemId}`.
+ * Orders private hone ki wajah se "most sold" aggregate nahi padh sakte,
+ * isliye har order place karte waqt count alag collection me increment hota hai.
+ */
+export interface SoldItem {
+  id: string
+  restaurantId: string
+  restaurantSlug: string
+  restaurantName: string
+  itemId: string
+  itemName: string
+  imageUrl: string
+  price: number
+  soldCount: number
+}
+
 export type PaymentMethod = 'cod' | 'razorpay'
 
 export type PaymentStatus = 'pending' | 'paid' | 'failed'

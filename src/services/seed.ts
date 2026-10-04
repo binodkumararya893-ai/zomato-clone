@@ -1,5 +1,5 @@
 /**
- * Demo seed data — sirf admin use kar sakta hai (rules enforce karti hain).
+ * Demo seed data â€” sirf admin use kar sakta hai (rules enforce karti hain).
  * Restaurant + menu documents Firestore me likhta hai.
  */
 import { doc, serverTimestamp, writeBatch } from 'firebase/firestore'
@@ -13,6 +13,8 @@ interface SeedMenuItem {
   isVeg: boolean
   isPopular?: boolean
   category: string
+  /** Demo `itemSales` counter â€” leaderboard dikhne ke liye. */
+  soldCount?: number
 }
 
 interface SeedRestaurant {
@@ -30,7 +32,7 @@ interface SeedRestaurant {
   menu: SeedMenuItem[]
 }
 
-/** Images Unsplash se aati hain — bina apne Storage ke demo ke liye. */
+/** Images Unsplash se aati hain â€” bina apne Storage ke demo ke liye. */
 const IMG = {
   pizza: 'https://images.unsplash.com/photo-1579751626657-72bc17010498?w=800',
   burger: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800',
@@ -56,9 +58,9 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     city: 'Bengaluru',
     offer: '40% off on your first order',
     menu: [
-      { id: 'margherita', name: 'Margherita Pizza', description: 'Classic tomato, mozzarella, basil', price: 299, isVeg: true, isPopular: true, category: 'Popular' },
+      { id: 'margherita', name: 'Margherita Pizza', description: 'Classic tomato, mozzarella, basil', price: 299, isVeg: true, isPopular: true, category: 'Popular', soldCount: 412 },
       { id: 'farmhouse', name: 'Farmhouse Pizza', description: 'Bell pepper, sweet corn, olives', price: 379, isVeg: true, category: 'Pizza' },
-      { id: 'pepperoni', name: 'Pepperoni Pizza', description: 'Loaded with double pepperoni', price: 449, isVeg: false, isPopular: true, category: 'Pizza' },
+      { id: 'pepperoni', name: 'Pepperoni Pizza', description: 'Loaded with double pepperoni', price: 449, isVeg: false, isPopular: true, category: 'Pizza', soldCount: 268 },
       { id: 'garlic-bread', name: 'Garlic Bread', description: 'Cheese loaded, herb butter', price: 149, isVeg: true, category: 'Sides' },
     ],
   },
@@ -73,10 +75,10 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     deliveryTimeMinutes: 28,
     area: 'Indiranagar',
     city: 'Bengaluru',
-    offer: 'Flat ₹100 off above ₹499',
+    offer: 'Flat â‚¹100 off above â‚¹499',
     menu: [
-      { id: 'double-cheese-burger', name: 'Double Cheese Burger', description: 'Two patties, double cheddar', price: 249, isVeg: true, isPopular: true, category: 'Popular' },
-      { id: 'chicken-zinger', name: 'Chicken Zinger', description: 'Crispy fried, spicy mayo', price: 279, isVeg: false, isPopular: true, category: 'Burgers' },
+      { id: 'double-cheese-burger', name: 'Double Cheese Burger', description: 'Two patties, double cheddar', price: 249, isVeg: true, isPopular: true, category: 'Popular', soldCount: 531 },
+      { id: 'chicken-zinger', name: 'Chicken Zinger', description: 'Crispy fried, spicy mayo', price: 279, isVeg: false, isPopular: true, category: 'Burgers', soldCount: 389 },
       { id: 'veg-pattie', name: 'Veg Patty Burger', description: 'Grilled patty, fresh veggies', price: 199, isVeg: true, category: 'Burgers' },
       { id: 'fries', name: 'Peri Peri Fries', description: 'Crispy fries with peri peri seasoning', price: 129, isVeg: true, category: 'Sides' },
       { id: 'milkshake', name: 'Oreo Milkshake', description: 'Thick, creamy, chocolate', price: 139, isVeg: true, category: 'Drinks' },
@@ -95,9 +97,9 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     city: 'Bengaluru',
     offer: 'Free delivery this week',
     menu: [
-      { id: 'hyderabadi-chicken', name: 'Hyderabadi Chicken Biryani', description: 'Dum cooked, long grain basmati', price: 349, isVeg: false, isPopular: true, category: 'Biryani' },
+      { id: 'hyderabadi-chicken', name: 'Hyderabadi Chicken Biryani', description: 'Dum cooked, long grain basmati', price: 349, isVeg: false, isPopular: true, category: 'Biryani', soldCount: 624 },
       { id: 'veg-dum-biryani', name: 'Veg Dum Biryani', description: 'Seasonal veggies, saffron rice', price: 279, isVeg: true, category: 'Biryani' },
-      { id: 'kacchi-gosht', name: 'Kacchi Gosht Biryani', description: 'Raw marinated mutton, slow cooked', price: 499, isVeg: false, isPopular: true, category: 'Biryani' },
+      { id: 'kacchi-gosht', name: 'Kacchi Gosht Biryani', description: 'Raw marinated mutton, slow cooked', price: 499, isVeg: false, isPopular: true, category: 'Biryani', soldCount: 241 },
       { id: 'mirchi-ka-salad', name: 'Mirchi Ka Salad', description: 'Refreshing onion and lemon', price: 49, isVeg: true, category: 'Sides' },
     ],
   },
@@ -114,8 +116,8 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     city: 'Bengaluru',
     offer: '20% off on Chinese dishes',
     menu: [
-      { id: 'hakka-noodles', name: 'Hakka Noodles', description: 'Wok tossed with vegetables', price: 219, isVeg: true, isPopular: true, category: 'Noodles' },
-      { id: 'chilli-chicken', name: 'Chilli Chicken', description: 'Indo-Chinese, fiery gravy', price: 289, isVeg: false, isPopular: true, category: 'Starters' },
+      { id: 'hakka-noodles', name: 'Hakka Noodles', description: 'Wok tossed with vegetables', price: 219, isVeg: true, isPopular: true, category: 'Noodles', soldCount: 297 },
+      { id: 'chilli-chicken', name: 'Chilli Chicken', description: 'Indo-Chinese, fiery gravy', price: 289, isVeg: false, isPopular: true, category: 'Starters', soldCount: 354 },
       { id: 'manchurian', name: 'Veg Manchurian', description: 'Crispy balls in garlic sauce', price: 239, isVeg: true, category: 'Starters' },
       { id: 'fried-rice', name: 'Schezwan Fried Rice', description: 'Spicy rice with spring onion', price: 229, isVeg: true, category: 'Rice' },
     ],
@@ -131,10 +133,10 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     deliveryTimeMinutes: 25,
     area: 'Malleshwaram',
     city: 'Bengaluru',
-    offer: 'Breakfast combo @ ₹149',
+    offer: 'Breakfast combo @ â‚¹149',
     menu: [
-      { id: 'masala-dosa', name: 'Masala Dosa', description: 'Crisp dosa, potato palya, chutneys', price: 129, isVeg: true, isPopular: true, category: 'Dosa' },
-      { id: 'mysore-masala-dosa', name: 'Mysore Masala Dosa', description: 'Spicy red masala filling', price: 159, isVeg: true, isPopular: true, category: 'Dosa' },
+      { id: 'masala-dosa', name: 'Masala Dosa', description: 'Crisp dosa, potato palya, chutneys', price: 129, isVeg: true, isPopular: true, category: 'Dosa', soldCount: 703 },
+      { id: 'mysore-masala-dosa', name: 'Mysore Masala Dosa', description: 'Spicy red masala filling', price: 159, isVeg: true, isPopular: true, category: 'Dosa', soldCount: 488 },
       { id: 'idli-vada', name: 'Idli Vada Combo', description: 'Two idlis, one vada, sambar', price: 119, isVeg: true, category: 'South Indian' },
       { id: 'filter-coffee', name: 'Filter Coffee', description: 'Strong decoction with milk', price: 49, isVeg: true, category: 'Beverages' },
     ],
@@ -152,8 +154,8 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     city: 'Bengaluru',
     offer: 'Buy 1 get 1 on birthdays',
     menu: [
-      { id: 'gulab-jamun', name: 'Gulab Jamun (2 pcs)', description: 'Soft, soaked in syrup', price: 129, isVeg: true, isPopular: true, category: 'Indian Sweets' },
-      { id: 'chocolate-brownie', name: 'Chocolate Brownie', description: 'Fudgy, served warm', price: 199, isVeg: true, isPopular: true, category: 'Desserts' },
+      { id: 'gulab-jamun', name: 'Gulab Jamun (2 pcs)', description: 'Soft, soaked in syrup', price: 129, isVeg: true, isPopular: true, category: 'Indian Sweets', soldCount: 316 },
+      { id: 'chocolate-brownie', name: 'Chocolate Brownie', description: 'Fudgy, served warm', price: 199, isVeg: true, isPopular: true, category: 'Desserts', soldCount: 275 },
       { id: 'red-velvet', name: 'Red Velvet Cake', description: 'Cream cheese frosting', price: 349, isVeg: true, category: 'Desserts' },
       { id: 'lassi', name: 'Samosa Lassi', description: 'Sweet lassi with mini samosa', price: 99, isVeg: true, category: 'Beverages' },
     ],
@@ -169,10 +171,10 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     deliveryTimeMinutes: 38,
     area: 'BTM Layout',
     city: 'Bengaluru',
-    offer: '₹150 off on orders above ₹799',
+    offer: 'â‚¹150 off on orders above â‚¹799',
     menu: [
-      { id: 'butter-chicken', name: 'Butter Chicken', description: 'Tomato gravy, cream, butter', price: 379, isVeg: false, isPopular: true, category: 'Curries' },
-      { id: 'paneer-butter-masala', name: 'Paneer Butter Masala', description: 'Soft paneer in rich gravy', price: 319, isVeg: true, isPopular: true, category: 'Curries' },
+      { id: 'butter-chicken', name: 'Butter Chicken', description: 'Tomato gravy, cream, butter', price: 379, isVeg: false, isPopular: true, category: 'Curries', soldCount: 559 },
+      { id: 'paneer-butter-masala', name: 'Paneer Butter Masala', description: 'Soft paneer in rich gravy', price: 319, isVeg: true, isPopular: true, category: 'Curries', soldCount: 402 },
       { id: 'dal-tadka', name: 'Dal Tadka', description: 'Yellow lentils, tadka tempered', price: 199, isVeg: true, category: 'Curries' },
       { id: 'butter-naan', name: 'Butter Naan', description: 'Tandoor baked, brushed with butter', price: 79, isVeg: true, category: 'Breads' },
     ],
@@ -188,10 +190,10 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     deliveryTimeMinutes: 45,
     area: 'Whitefield',
     city: 'Bengaluru',
-    offer: 'Free dessert above ₹999',
+    offer: 'Free dessert above â‚¹999',
     menu: [
-      { id: 'butter-prawns', name: 'Butter Prawns', description: 'Grilled prawns, garlic butter', price: 549, isVeg: false, isPopular: true, category: 'Starters' },
-      { id: 'fish-curry', name: 'Bengaluru Fish Curry', description: 'Coconut base, kokum, curry leaf', price: 429, isVeg: false, isPopular: true, category: 'Curries' },
+      { id: 'butter-prawns', name: 'Butter Prawns', description: 'Grilled prawns, garlic butter', price: 549, isVeg: false, isPopular: true, category: 'Starters', soldCount: 188 },
+      { id: 'fish-curry', name: 'Bengaluru Fish Curry', description: 'Coconut base, kokum, curry leaf', price: 429, isVeg: false, isPopular: true, category: 'Curries', soldCount: 214 },
       { id: 'surmai-fry', name: 'Surmai Fry', description: 'Crisp fried kingfish', price: 489, isVeg: false, category: 'Starters' },
       { id: 'veg-steam', name: 'Steamed Veg Platter', description: 'Seasonal vegetables', price: 299, isVeg: true, category: 'Starters' },
     ],
@@ -199,7 +201,7 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
 ]
 
 /**
- * Har cuisine ke liye multiple dish images — taaki menu me saari dishes
+ * Har cuisine ke liye multiple dish images â€” taaki menu me saari dishes
  * ek jaisi na lagein. Index se rotate karte hain.
  */
 const DISH_POOLS = {
@@ -266,7 +268,7 @@ function dishPoolKey(cuisines: string[]): DishPoolKey {
   return 'default'
 }
 
-/** Pool se cyclic image — har dish ko alag image milti hai. */
+/** Pool se cyclic image â€” har dish ko alag image milti hai. */
 function dishImage(cuisines: string[], index: number): string {
   const pool: readonly string[] = DISH_POOLS[dishPoolKey(cuisines)]
   return pool[index % pool.length] ?? pool[0] ?? ''
@@ -301,17 +303,35 @@ export async function seedDemoData(): Promise<number> {
     pending += 1
 
     for (const [index, item] of restaurant.menu.entries()) {
+      const imageUrl = dishImage(restaurant.cuisines, index)
+
       batch.set(doc(db, 'restaurants', restaurant.id, 'menu', item.id), {
         restaurantId: restaurant.id,
         name: item.name,
         description: item.description,
-        imageUrl: dishImage(restaurant.cuisines, index),
+        imageUrl,
         price: item.price,
         isVeg: item.isVeg,
         isPopular: Boolean(item.isPopular),
         category: item.category,
       })
       pending += 1
+
+      // Demo sales counter — admin likhta hai, baaki users sirf increment karte hain.
+      if (item.soldCount) {
+        batch.set(doc(db, 'itemSales', `${restaurant.id}__${item.id}`), {
+          restaurantId: restaurant.id,
+          restaurantSlug: restaurant.id,
+          restaurantName: restaurant.name,
+          itemId: item.id,
+          itemName: item.name,
+          imageUrl,
+          price: item.price,
+          soldCount: item.soldCount,
+          updatedAt: serverTimestamp(),
+        })
+        pending += 1
+      }
     }
 
     // Firestore batch limit 500 writes

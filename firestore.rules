@@ -65,5 +65,34 @@ service cloud.firestore {
       allow update: if isAdmin();
       allow delete: if isAdmin();
     }
+
+    // Most-sold leaderboard: public read (homepage pe dikhta hai), lekin
+    // counters ko sirf increment karna allowed hai — reset/decrease nahi.
+    // Fields bhi restricted hain taaki koi arbitrary data inject na kare.
+    match /itemSales/{saleId} {
+      allow read: if true;
+
+      // Admin seed ke liye full control (demo counters bade hote hain).
+      allow create, delete: if isAdmin();
+
+      // Normal user: naya counter document, sane range me.
+      allow create: if isSignedIn()
+        && saleId.split('__').size == 2
+        && request.resource.data.keys().hasOnly([
+             'restaurantId', 'restaurantSlug', 'restaurantName', 'itemId', 'itemName',
+             'imageUrl', 'price', 'soldCount', 'updatedAt'
+           ])
+        && request.resource.data.soldCount is int
+        && request.resource.data.soldCount > 0
+        && request.resource.data.soldCount <= 20;
+
+      // Update: sirf soldCount badhna allowed, decrease nahi.
+      allow update: if isAdmin() || (isSignedIn()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+             'soldCount', 'restaurantName', 'restaurantSlug', 'imageUrl', 'price', 'updatedAt'
+           ])
+        && request.resource.data.soldCount is int
+        && request.resource.data.soldCount > resource.data.soldCount);
+    }
   }
 }

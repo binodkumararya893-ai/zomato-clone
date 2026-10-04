@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { fetchRestaurants } from '@/services/restaurants'
+import { fetchTopSoldByRestaurant } from '@/services/sales'
 import { useAsync } from '@/hooks/useAsync'
 import { RestaurantCard } from '@/components/restaurant/RestaurantCard'
 import { MostSoldRail } from '@/components/sales/MostSoldRail'
@@ -9,6 +10,9 @@ import { CUISINES } from '@/types'
 
 export default function HomePage() {
   const { data, loading, error, reload } = useAsync(() => fetchRestaurants(), [])
+  // Cards ke andar top-3 most sold dikhane ke liye. Sales data na mile to
+  // fail hone nahi deta — cards khali bas rahenge.
+  const { data: soldByRestaurant } = useAsync(() => fetchTopSoldByRestaurant(5), [])
   const [search, setSearch] = useState('')
   const [cuisine, setCuisine] = useState('all')
   const [sort, setSort] = useState('rating')
@@ -100,7 +104,11 @@ export default function HomePage() {
       {!loading && !error && filtered.length > 0 && (
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((restaurant) => (
-            <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+            <RestaurantCard
+              key={restaurant.id}
+              restaurant={restaurant}
+              soldItems={soldByRestaurant?.get(restaurant.id) ?? []}
+            />
           ))}
         </div>
       )}

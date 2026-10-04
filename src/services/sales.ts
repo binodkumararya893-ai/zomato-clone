@@ -100,3 +100,40 @@ export async function fetchMostSoldItems(limitCount = 10): Promise<SoldItem[]> {
   )
   return snap.docs.map((d) => docToSoldItem(d.id, d.data()))
 }
+
+/**
+ * Har restaurant ke apne top most-sold items — `restaurantId → SoldItem[]`.
+ *
+ * Ek hi query chalta hai aur result memory me group ho jaata hai, isliye har card
+ * ke liye alag fetch nahi (8 restaurants = 8 queries nahi).
+ *
+ * `maxItems` se har restaurant me kitne items rakhte hain wo control hota hai.
+ *
+ * Note: ye saare counters padhta hai (`maxDocs` tak), isliye catalogue bade hone
+ * par scale nahi karega — uske liye per-restaurant query ya Cloud Function chahiye.
+ */
+export async function fetchTopSoldByRestaurant(
+  perRestaurant = 3,
+  maxDocs = 500,
+): Promise<Map<string, SoldItem[]>> {
+  const snap = await getDocs(
+    query(collection(db, 'itemSales'), orderBy('soldCount', 'desc'), limit(maxDocs)),
+  )
+
+  const grouped = new Map<string, SoldItem[]>()
+
+  for (const doc of snap.docs) {
+    const item = docToSoldItem(doc.id, doc.data())
+    if (!item.restaurantId) continue
+
+    const bucket = grouped.get(item.restaurantId)
+    if (!bucket) {
+      grouped.set(item.restaurantId, [item])
+      continue
+    }
+    // Query sorted hai, isliye pehle `perRestaurant` hi rakhne kaafi hain.
+    if (bucket.length < perRestaurant) bucket.push(item)
+  }
+
+  return grouped
+}

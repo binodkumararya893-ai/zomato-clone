@@ -6,7 +6,7 @@ Ye document kya banaya jaana hai, uski requirements aur acceptance criteria defi
 | | |
 | --- | --- |
 | **Project** | Zomato Clone |
-| **Doc version** | 1.0 |
+| **Doc version** | 1.1 — FR-9 split into global rail + per-restaurant list |
 | **Status** | Implemented (features below shipped ya in-progress) |
 | **Stack** | React 19, TypeScript (strict), Vite 8, Tailwind CSS v4, React Router 7, Firebase (Auth, Firestore, Storage, Hosting) |
 | **Live demo** | https://zomato-clone-b7f2.web.app |
@@ -113,18 +113,44 @@ Ye in scope me nahi hain.
 
 *Ye naya feature hai (branch `most-sold-items`).*
 
+Do presentations hain — dono ek hi counter store par based hain.
+
+**A. Global rail** (homepage, hero ke niche)
+
 | ID | Requirement | Status |
 | --- | --- | --- |
-| FR-9.1 | Homepage pe top 10 most-sold dishes, rank badge ke saath | In progress |
+| FR-9.1 | Top 10 most-sold dishes, rank badge ke saath | In progress |
 | FR-9.2 | Har card par dish, restaurant, price aur sold count | In progress |
-| FR-9.3 | Card click se us restaurant ke menu pe jaaye | In progress |
-| FR-9.4 | Order place karne pe counter increment ho | In progress |
-| FR-9.5 | Counter increment atomic ho (concurrent orders safe) | In progress |
-| FR-9.6 | Koi counter na ho to section hide ho — fake data na dikhe | In progress |
+
+**B. Per-restaurant list** (har restaurant card ke andar, niche)
+
+| ID | Requirement | Status |
+| --- | --- | --- |
+| FR-9.3 | Har restaurant card ke andar uske top **5** most-sold dishes | In progress |
+| FR-9.4 | Sirf unhi items ki list jinka sales counter exist kare | In progress |
+| FR-9.5 | Dish name, price aur sold count — restaurant card ke andar hi | In progress |
+| FR-9.6 | Click se us restaurant ka menu page khule | In progress |
+
+**Common**
+
+| ID | Requirement | Status |
+| --- | --- | --- |
+| FR-9.7 | Order place karne pe counter increment ho | In progress |
+| FR-9.8 | Counter increment atomic ho (concurrent orders safe) | In progress |
+| FR-9.9 | Koi counter na ho to section/list chhup jaaye — fake data na dikhe | In progress |
+| FR-9.10 | Ek hi query, result memory me group — per-card fetch nahi | In progress |
 
 **FR-9 design constraint:** `orders` collection rules me private hai — user sirf apne orders
 padh sakta hai. Isliye leaderboard aggregate nahi padh sakta, balki denormalized counters
 use karta hai (`itemSales/{restaurantId}__{itemId}`). Detail [§6](#6-most-sold-items--design-note) me.
+
+**Ceiling vs actual data (FR-9.3):** 5 ek **ceiling** hai, guarantee nahi. Seed me har restaurant
+ke exactly 2 items `isPopular` hain aur counters bhi unhi 2 pe hain — isliye abhi har card par
+maximum **2** rows dikhenge, 5 nahi. 5 tab poora hoga jab real orders se counters badhein.
+
+**Two overlapping presentations:** FR-9.1 (global rail) aur FR-9.3 (per-card list) dono ek hi
+data se chalte hain aur ek doosre ka duplicate lag sakte hain. Requirement owner se confirm
+karna baaki hai ki dono chahiye ya sirf ek.
 
 ---
 
@@ -224,6 +250,19 @@ se replace karna chahiye.
 
 **Rollout dependency.** Feature dikhne ke liye `firestore.rules` me naya `itemSales` block
 deploy hona chahiye (pehle default deny tha) aur Admin console se seed dobara chalna chahiye.
+Deploy hone tak feature code present rahega par UI pe nahi dikhega.
+
+**Data reality (2026-10).** Seed me 16 counters hain, aur ye **sab 16** `isPopular: true`
+items pe hain — non-popular items par koi counter nahi. Har restaurant ke exactly 2 popular
+items hain, isliye per-restaurant list (FR-9.3) par abhi max 2 rows dikhti hain, chahe ceiling
+5 ho. Ye jaan-boojh kar rakha gaya hai: "sab items ko counter dena" se "most sold" ka matlab
+hi khatam ho jaata (sab equal, ranking meaningless).
+
+**Failure behaviour.** Dono presentations me fetch fail hone par koi error ya empty state
+nahi dikhta — list chup-chaap render nahi hoti (`useAsync` error pakad leta hai, component
+`null` return karta hai). Data-driven hone ki wajah se ye theek hai, par production me
+permission ya query failure diagnose karna mushkil hoga. Visible empty/error state consider
+karna chahiye.
 
 ---
 
@@ -245,4 +284,7 @@ deploy hona chahiye (pehle default deny tha) aur Admin console se seed dobara ch
 - Coupon / promo codes
 - Push notifications on order status change
 - Most-sold counters ko Cloud Functions se secure karna
+- Global rail aur per-card list me se ek hata kar redundancy kam karna
+- Most-sold fetch failure par visible empty/error state
+- `fetchTopSoldByRestaurant` ka scale-out — ab saare counters padhta hai (500 cap)
 - Analytics: popular items, peak hours, revenue per restaurant

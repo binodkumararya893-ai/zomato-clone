@@ -4,7 +4,7 @@ import { Spinner } from '@/components/ui/Button'
 
 export function Loader({ label = 'Loading…' }: { label?: string }) {
   return (
-    <div role="status" className="flex flex-col items-center justify-center gap-3 py-16 text-gray-500">
+    <div role="status" className="flex flex-col items-center justify-center gap-3 py-16 text-gray-500 dark:text-gray-400">
       <Spinner className="h-8 w-8 text-red-600" />
       <p className="text-sm">{label}</p>
     </div>
@@ -13,11 +13,11 @@ export function Loader({ label = 'Loading…' }: { label?: string }) {
 
 export function SkeletonCard() {
   return (
-    <div className="animate-pulse overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100">
-      <div className="h-44 w-full bg-gray-200" />
+    <div className="animate-pulse overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+      <div className="h-44 w-full bg-gray-200 dark:bg-gray-800" />
       <div className="space-y-3 p-4">
-        <div className="h-4 w-3/4 rounded bg-gray-200" />
-        <div className="h-3 w-1/2 rounded bg-gray-200" />
+        <div className="h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-800" />
+        <div className="h-3 w-1/2 rounded bg-gray-200 dark:bg-gray-800" />
       </div>
     </div>
   )
@@ -25,9 +25,9 @@ export function SkeletonCard() {
 
 export function ErrorState({ message, onRetry }: { message: string; onRetry?: () => void }) {
   return (
-    <div role="alert" className="mx-auto max-w-md rounded-xl bg-red-50 p-6 text-center ring-1 ring-red-100">
-      <p className="font-medium text-red-800">Kuch gadbad ho gayi</p>
-      <p className="mt-1 text-sm text-red-700">{message}</p>
+    <div role="alert" className="mx-auto max-w-md rounded-xl bg-red-50 p-6 text-center ring-1 ring-red-100 dark:bg-red-950/50 dark:ring-red-900">
+      <p className="font-medium text-red-800 dark:text-red-300">Kuch gadbad ho gayi</p>
+      <p className="mt-1 text-sm text-red-700 dark:text-red-400">{message}</p>
       {onRetry && (
         <button
           onClick={onRetry}
@@ -50,12 +50,12 @@ export function EmptyState({
   action?: { label: string; to: string }
 }) {
   return (
-    <div className="mx-auto max-w-md rounded-xl bg-white p-10 text-center ring-1 ring-gray-100">
-      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 text-2xl">
+    <div className="mx-auto max-w-md rounded-xl bg-white p-10 text-center ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 text-2xl dark:bg-gray-800">
         🍽️
       </div>
-      <p className="font-semibold text-gray-900">{title}</p>
-      {description && <p className="mt-1 text-sm text-gray-500">{description}</p>}
+      <p className="font-semibold text-gray-900 dark:text-gray-100">{title}</p>
+      {description && <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{description}</p>}
       {action && (
         <Link
           to={action.to}

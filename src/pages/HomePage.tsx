@@ -50,7 +50,7 @@ export default function HomePage() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Restaurant, cuisine ya area search karo"
           aria-label="Search restaurants"
-          className="mt-6 w-full max-w-md rounded-lg bg-white px-4 py-3 text-gray-900 shadow-sm placeholder:text-gray-400 focus:outline-2 focus:outline-white"
+          className="mt-6 w-full max-w-md rounded-lg bg-white px-4 py-3 text-gray-900 shadow-sm placeholder:text-gray-400 focus:outline-2 focus:outline-white dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-500"
         />
       </section>
 
@@ -72,7 +72,7 @@ export default function HomePage() {
             <option value="price-low">Price: low to high</option>
           </Select>
         </div>
-        <p className="ml-auto text-sm text-gray-500">{filtered.length} restaurants</p>
+        <p className="ml-auto text-sm text-gray-500 dark:text-gray-400">{filtered.length} restaurants</p>
       </div>
 
       {loading && (

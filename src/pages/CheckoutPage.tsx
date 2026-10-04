@@ -140,10 +140,10 @@ export default function CheckoutPage() {
 
   return (
     <PageShell>
-      <h1 className="mb-4 text-2xl font-bold text-gray-900">Checkout</h1>
+      <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">Checkout</h1>
       <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-        <form onSubmit={handleSubmit} noValidate className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
-          <h2 className="font-semibold text-gray-900">Delivery address</h2>
+        <form onSubmit={handleSubmit} noValidate className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+          <h2 className="font-semibold text-gray-900 dark:text-gray-100">Delivery address</h2>
 
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <Input
@@ -197,9 +197,9 @@ export default function CheckoutPage() {
           </div>
 
           <fieldset className="mt-5">
-            <legend className="text-sm font-medium text-gray-700">Payment method</legend>
+            <legend className="text-sm font-medium text-gray-700 dark:text-gray-300">Payment method</legend>
             <div className="mt-2 space-y-2">
-              <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-300 p-3 text-sm has-checked:border-red-500 has-checked:bg-red-50/40">
+              <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-300 p-3 text-sm has-checked:border-red-500 has-checked:bg-red-50/40 dark:border-gray-700 dark:has-checked:bg-red-950/40">
                 <input
                   type="radio"
                   name="paymentMethod"
@@ -209,16 +209,16 @@ export default function CheckoutPage() {
                   className="h-4 w-4 accent-red-600"
                 />
                 <span>
-                  <span className="font-medium text-gray-900">Cash on delivery</span>
-                  <span className="block text-xs text-gray-500">Cash rakho, deliver hote hi de dena</span>
+                  <span className="font-medium text-gray-900 dark:text-gray-100">Cash on delivery</span>
+                  <span className="block text-xs text-gray-500 dark:text-gray-400">Cash rakho, deliver hote hi de dena</span>
                 </span>
               </label>
 
               <label
-                className={`flex items-center gap-3 rounded-lg border border-gray-300 p-3 text-sm ${
+                className={`flex items-center gap-3 rounded-lg border border-gray-300 p-3 text-sm dark:border-gray-700 ${
                   razorpayReady
-                    ? 'cursor-pointer has-checked:border-red-500 has-checked:bg-red-50/40'
-                    : 'cursor-not-allowed bg-gray-50 opacity-60'
+                    ? 'cursor-pointer has-checked:border-red-500 has-checked:bg-red-50/40 dark:has-checked:bg-red-950/40'
+                    : 'cursor-not-allowed bg-gray-50 opacity-60 dark:bg-gray-800'
                 }`}
               >
                 <input
@@ -231,8 +231,8 @@ export default function CheckoutPage() {
                   className="h-4 w-4 accent-red-600"
                 />
                 <span>
-                  <span className="font-medium text-gray-900">Pay online (Razorpay)</span>
-                  <span className="block text-xs text-gray-500">
+                  <span className="font-medium text-gray-900 dark:text-gray-100">Pay online (Razorpay)</span>
+                  <span className="block text-xs text-gray-500 dark:text-gray-400">
                     {razorpayReady
                       ? 'UPI, cards, netbanking'
                       : 'Setup nahi hai — VITE_RAZORPAY_KEY_ID add karo .env.local me'}
@@ -248,7 +248,7 @@ export default function CheckoutPage() {
             </p>
           )}
 
-          <p className="mt-4 text-xs text-gray-500">
+          <p className="mt-4 text-xs text-gray-500 dark:text-gray-400">
             Logged in as {profile?.email ?? user.email}. Payment demo hai — real gateway nahi.
           </p>
 

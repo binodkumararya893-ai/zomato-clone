@@ -33,7 +33,7 @@ function SoldRow({ item }: { item: SoldItem }) {
   }
 
   return (
-    <li className="flex items-center gap-2.5 rounded-lg bg-white px-2.5 py-2 text-xs ring-1 ring-gray-100">
+    <li className="flex items-center gap-2.5 rounded-lg bg-white px-2.5 py-2 text-xs ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
       {/* Image isliye zaroori hai ki dish dikhne se hi add ka mann kare —
           naam + price se decide karna mushkil hota hai. */}
       {item.imageUrl ? (
@@ -41,22 +41,24 @@ function SoldRow({ item }: { item: SoldItem }) {
           src={item.imageUrl}
           alt={item.itemName}
           loading="lazy"
-          className="h-10 w-10 shrink-0 rounded-md object-cover ring-1 ring-gray-100"
+          className="h-10 w-10 shrink-0 rounded-md object-cover ring-1 ring-gray-100 dark:ring-gray-800"
         />
       ) : (
         <span
           aria-hidden="true"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-gray-100 text-base ring-1 ring-gray-100"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-gray-100 text-base ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700"
         >
           🍲
         </span>
       )}
 
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium text-gray-900">{item.itemName}</span>
-        <span className="block text-[11px] text-gray-500">
+        <span className="block truncate font-medium text-gray-900 dark:text-gray-100">
+          {item.itemName}
+        </span>
+        <span className="block text-[11px] text-gray-500 dark:text-gray-400">
           {formatINR(item.price)}
-          <span className="ml-1.5 rounded-full bg-green-50 px-1.5 py-0.5 text-[10px] font-semibold text-green-700">
+          <span className="ml-1.5 rounded-full bg-green-50 px-1.5 py-0.5 text-[10px] font-semibold text-green-700 dark:bg-green-950/50 dark:text-green-300">
             {formatCount(item.soldCount)} sold
           </span>
         </span>
@@ -68,7 +70,7 @@ function SoldRow({ item }: { item: SoldItem }) {
         aria-label={`${item.itemName} add to cart`}
         className={`shrink-0 rounded-md px-2.5 py-1 text-[11px] font-semibold transition-colors ${
           added
-            ? 'bg-green-50 text-green-700'
+            ? 'bg-green-50 text-green-700 dark:bg-green-950/50 dark:text-green-300'
             : 'bg-red-600 text-white hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-red-600'
         }`}
       >
@@ -87,7 +89,7 @@ export function SoldItemsBar({ items }: { items: SoldItem[] }) {
 
   return (
     <div className="mt-2">
-      <p className="mb-1.5 flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-gray-400">
+      <p className="mb-1.5 flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
         <span aria-hidden="true">🔥</span> Most sold
       </p>
       <ul className="space-y-1.5">

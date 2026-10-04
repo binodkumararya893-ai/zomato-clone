@@ -6,8 +6,8 @@ export default function NotFoundPage() {
     <PageShell>
       <div className="py-24 text-center">
         <p className="text-6xl font-black text-red-600">404</p>
-        <h1 className="mt-4 text-xl font-semibold text-gray-900">Page nahi mila</h1>
-        <p className="mt-1 text-sm text-gray-500">Link shayad galat hai ya page hat gaya.</p>
+        <h1 className="mt-4 text-xl font-semibold text-gray-900 dark:text-gray-100">Page nahi mila</h1>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Link shayad galat hai ya page hat gaya.</p>
         <Link
           to="/"
           className="mt-6 inline-block rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700"

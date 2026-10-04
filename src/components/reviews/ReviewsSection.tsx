@@ -28,7 +28,7 @@ function StarPicker({ value, onChange }: { value: number; onChange: (v: number) 
           ★
         </button>
       ))}
-      <span className="ml-2 text-sm text-gray-500">
+      <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
         {value > 0 ? `${value} star${value > 1 ? 's' : ''}` : 'Rating chuno'}
       </span>
     </div>
@@ -106,11 +106,11 @@ export function ReviewsSection({
   }
 
   return (
-    <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
-      <h2 className="text-lg font-bold text-gray-900">Reviews & ratings</h2>
+    <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+      <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Reviews & ratings</h2>
 
       {!user ? (
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
           Review likhne ke liye{' '}
           <Link to="/login" className="font-medium text-red-600 hover:underline">
             login
@@ -118,8 +118,8 @@ export function ReviewsSection({
           karo.
         </p>
       ) : (
-        <div className="mt-4 rounded-xl bg-gray-50 p-4">
-          <p className="text-sm font-medium text-gray-900">
+        <div className="mt-4 rounded-xl bg-gray-50 p-4 dark:bg-gray-800">
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
             {myReview ? 'Apna review update karo' : 'Apna review likho'}
           </p>
           <div className="mt-2">
@@ -137,12 +137,12 @@ export function ReviewsSection({
           </div>
 
           {error && (
-            <p role="alert" className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+            <p role="alert" className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950/50 dark:text-red-300">
               {error}
             </p>
           )}
           {done && !error && (
-            <p className="mt-3 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
+            <p className="mt-3 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700 dark:bg-green-950/50 dark:text-green-300">
               Review save ho gaya! Shukriya.
             </p>
           )}
@@ -162,20 +162,20 @@ export function ReviewsSection({
 
       <div className="mt-5">
         {reviews.length === 0 ? (
-          <p className="text-sm text-gray-500">Abhi koi review nahi. Pehla aap likho!</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Abhi koi review nahi. Pehla aap likho!</p>
         ) : (
           <ul className="space-y-4">
             {reviews.map((review) => (
-              <li key={review.id} className="border-t border-gray-100 pt-4 first:border-0 first:pt-0">
+              <li key={review.id} className="border-t border-gray-100 pt-4 first:border-0 first:pt-0 dark:border-gray-800">
                 <div className="flex items-center justify-between gap-3">
-                  <p className="font-medium text-gray-900">{review.userName}</p>
-                  <span className="text-xs text-gray-400">{formatDate(review.createdAt)}</span>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">{review.userName}</p>
+                  <span className="text-xs text-gray-400 dark:text-gray-500">{formatDate(review.createdAt)}</span>
                 </div>
                 <div className="mt-1">
                   <StarDisplay rating={review.rating} />
                 </div>
                 {review.comment && (
-                  <p className="mt-1.5 text-sm text-gray-600">{review.comment}</p>
+                  <p className="mt-1.5 text-sm text-gray-600 dark:text-gray-400">{review.comment}</p>
                 )}
               </li>
             ))}

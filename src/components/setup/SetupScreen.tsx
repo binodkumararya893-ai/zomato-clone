@@ -15,44 +15,44 @@ export function SetupScreen({ missing = [], error }: Props) {
   const otherError = error && !(error instanceof FirebaseSetupError)
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f7f7f7] p-6">
-      <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-2xl">
+    <div className="flex min-h-screen items-center justify-center bg-[#f7f7f7] p-6 dark:bg-black">
+      <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-2xl dark:bg-red-950/50">
           🔥
         </div>
-        <h1 className="text-xl font-bold text-gray-900">Firebase setup chahiye</h1>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Firebase setup chahiye</h1>
 
         {detail ? (
-          <p className="mt-2 text-sm text-gray-600">{detail}</p>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{detail}</p>
         ) : otherError ? (
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             App start nahi hua:{' '}
             {error instanceof Error ? error.message : 'unknown error'}. Console check karo.
           </p>
         ) : (
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Firebase config nahi mila. Ye 4 steps follow karo:
           </p>
         )}
 
-        <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-gray-700">
+        <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-gray-700 dark:text-gray-300">
           <li>
             Firebase Console → project <strong>flipmart-c8f97</strong> → ⚙ Project settings → Your apps
           </li>
           <li>
-            Web app (<code className="rounded bg-gray-100 px-1">)</code> icon click karke config copy karo
+            Web app (<code className="rounded bg-gray-100 px-1 dark:bg-gray-800">)</code> icon click karke config copy karo
           </li>
           <li>
-            <code className="rounded bg-gray-100 px-1">.env.example</code> ko{' '}
-            <code className="rounded bg-gray-100 px-1">.env.local</code> me copy karo aur values bharo
+            <code className="rounded bg-gray-100 px-1 dark:bg-gray-800">.env.example</code> ko{' '}
+            <code className="rounded bg-gray-100 px-1 dark:bg-gray-800">.env.local</code> me copy karo aur values bharo
           </li>
-          <li>Dev server restart karo: <code className="rounded bg-gray-100 px-1">npm run dev</code></li>
+          <li>Dev server restart karo: <code className="rounded bg-gray-100 px-1 dark:bg-gray-800">npm run dev</code></li>
         </ol>
 
         {missing.length > 0 && (
-          <div className="mt-4 rounded-lg bg-gray-50 p-3">
-            <p className="text-xs font-medium text-gray-700">Missing env keys:</p>
-            <ul className="mt-1 list-inside list-disc text-xs text-gray-500">
+          <div className="mt-4 rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
+            <p className="text-xs font-medium text-gray-700 dark:text-gray-300">Missing env keys:</p>
+            <ul className="mt-1 list-inside list-disc text-xs text-gray-500 dark:text-gray-400">
               {missing.map((key) => (
                 <li key={key}>
                   <code>{key}</code>

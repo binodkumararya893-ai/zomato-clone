@@ -52,11 +52,11 @@ export default function LoginPage() {
 
   return (
     <PageShell>
-      <div className="mx-auto max-w-md rounded-2xl bg-white p-7 shadow-sm ring-1 ring-gray-100">
-        <h1 className="text-2xl font-bold text-gray-900">
+      <div className="mx-auto max-w-md rounded-2xl bg-white p-7 shadow-sm ring-1 ring-gray-100 dark:bg-gray-900 dark:ring-gray-800">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
           {mode === 'login' ? 'Login' : 'Create account'}
         </h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
           {mode === 'login' ? 'Order track karne ke liye login karo.' : 'Naye user ke liye signup.'}
         </p>
 
@@ -69,10 +69,10 @@ export default function LoginPage() {
           <GoogleIcon /> Continue with Google
         </Button>
 
-        <div className="my-5 flex items-center gap-3 text-xs text-gray-400">
-          <span className="h-px flex-1 bg-gray-200" />
+        <div className="my-5 flex items-center gap-3 text-xs text-gray-400 dark:text-gray-500">
+          <span className="h-px flex-1 bg-gray-200 dark:bg-gray-800" />
           OR
-          <span className="h-px flex-1 bg-gray-200" />
+          <span className="h-px flex-1 bg-gray-200 dark:bg-gray-800" />
         </div>
 
         <form onSubmit={handleSubmit} noValidate className="space-y-4">

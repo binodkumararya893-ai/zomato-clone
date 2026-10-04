@@ -117,7 +117,7 @@ npm run dev     # http://localhost:5173
 | `npm run preview` | Production build ka local preview |
 | `npm run typecheck` | Sirf TS typecheck |
 | `npm run lint` | oxlint |
-| `npm run deploy` | Build + `firebase deploy` |
+| `npm run deploy` | Build + `firebase deploy --only hosting,firestore` |
 | `npm run test` | Playwright e2e tests (headed browser) |
 | `npm run test:ui` | Playwright UI mode |
 | `npm run test:install` | Playwright browsers install |
@@ -163,8 +163,12 @@ npm run deploy        # build + firebase deploy
 Rules/indexes alag se:
 
 ```bash
-firebase deploy --only firestore:rules,firestore:indexes,storage
+firebase deploy --only firestore:rules,firestore:indexes
 ```
+
+> Storage is project me enable **nahi** hai, isliye `npm run deploy` me storage
+> deliberately include nahi hai — include karne par deploy error se ruk jaata hai.
+> Storage set up hone ke baad `npm run deploy:storage` se alag se deploy karo.
 
 > `firebase.json` me SPA rewrite already hai, isliye deep links (jaise `/restaurant/pizza-hub`) 404 nahi honge.
 
@@ -197,7 +201,7 @@ https://console.firebase.google.com/project/`<PROJECT_ID>`/storage → **Get sta
 **5. Rules deploy karo**
 
 ```bash
-firebase deploy --only firestore:rules,firestore:indexes,storage
+firebase deploy --only firestore:rules,firestore:indexes
 ```
 
 **6. Pehla account banao + admin role**

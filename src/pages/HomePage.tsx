@@ -3,6 +3,7 @@ import { fetchRestaurants } from '@/services/restaurants'
 import { fetchTopSoldByRestaurant } from '@/services/sales'
 import { useAsync } from '@/hooks/useAsync'
 import { RestaurantCard } from '@/components/restaurant/RestaurantCard'
+import { SoldItemsBar } from '@/components/sales/SoldItemsBar'
 import { EmptyState, ErrorState, PageShell, SkeletonCard } from '@/components/ui/Feedback'
 import { Select } from '@/components/ui/Form'
 import { CUISINES } from '@/types'
@@ -101,11 +102,12 @@ export default function HomePage() {
       {!loading && !error && filtered.length > 0 && (
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((restaurant) => (
-            <RestaurantCard
-              key={restaurant.id}
-              restaurant={restaurant}
-              soldItems={soldByRestaurant?.get(restaurant.id) ?? []}
-            />
+            // Wrapper isliye zaroori hai ki ADD buttons card ke <Link> ke
+            // bahar rahein — anchor ke andar button invalid HTML hota.
+            <div key={restaurant.id}>
+              <RestaurantCard restaurant={restaurant} />
+              <SoldItemsBar items={soldByRestaurant?.get(restaurant.id) ?? []} />
+            </div>
           ))}
         </div>
       )}

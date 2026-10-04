@@ -1,5 +1,5 @@
 /**
- * Demo seed data â€” sirf admin use kar sakta hai (rules enforce karti hain).
+ * Demo seed data — sirf admin use kar sakta hai (rules enforce karti hain).
  * Restaurant + menu documents Firestore me likhta hai.
  */
 import { doc, serverTimestamp, writeBatch } from 'firebase/firestore'
@@ -13,7 +13,7 @@ interface SeedMenuItem {
   isVeg: boolean
   isPopular?: boolean
   category: string
-  /** Demo `itemSales` counter â€” leaderboard dikhne ke liye. */
+  /** Demo `itemSales` counter — leaderboard dikhne ke liye. */
   soldCount?: number
 }
 
@@ -32,7 +32,7 @@ interface SeedRestaurant {
   menu: SeedMenuItem[]
 }
 
-/** Images Unsplash se aati hain â€” bina apne Storage ke demo ke liye. */
+/** Images Unsplash se aati hain — bina apne Storage ke demo ke liye. */
 const IMG = {
   pizza: 'https://images.unsplash.com/photo-1579751626657-72bc17010498?w=800',
   burger: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800',
@@ -75,7 +75,7 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     deliveryTimeMinutes: 28,
     area: 'Indiranagar',
     city: 'Bengaluru',
-    offer: 'Flat â‚¹100 off above â‚¹499',
+    offer: 'Flat ₹100 off above ₹499',
     menu: [
       { id: 'double-cheese-burger', name: 'Double Cheese Burger', description: 'Two patties, double cheddar', price: 249, isVeg: true, isPopular: true, category: 'Popular', soldCount: 531 },
       { id: 'chicken-zinger', name: 'Chicken Zinger', description: 'Crispy fried, spicy mayo', price: 279, isVeg: false, isPopular: true, category: 'Burgers', soldCount: 389 },
@@ -133,7 +133,7 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     deliveryTimeMinutes: 25,
     area: 'Malleshwaram',
     city: 'Bengaluru',
-    offer: 'Breakfast combo @ â‚¹149',
+    offer: 'Breakfast combo @ ₹149',
     menu: [
       { id: 'masala-dosa', name: 'Masala Dosa', description: 'Crisp dosa, potato palya, chutneys', price: 129, isVeg: true, isPopular: true, category: 'Dosa', soldCount: 703 },
       { id: 'mysore-masala-dosa', name: 'Mysore Masala Dosa', description: 'Spicy red masala filling', price: 159, isVeg: true, isPopular: true, category: 'Dosa', soldCount: 488 },
@@ -171,7 +171,7 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     deliveryTimeMinutes: 38,
     area: 'BTM Layout',
     city: 'Bengaluru',
-    offer: 'â‚¹150 off on orders above â‚¹799',
+    offer: '₹150 off on orders above ₹799',
     menu: [
       { id: 'butter-chicken', name: 'Butter Chicken', description: 'Tomato gravy, cream, butter', price: 379, isVeg: false, isPopular: true, category: 'Curries', soldCount: 559 },
       { id: 'paneer-butter-masala', name: 'Paneer Butter Masala', description: 'Soft paneer in rich gravy', price: 319, isVeg: true, isPopular: true, category: 'Curries', soldCount: 402 },
@@ -190,7 +190,7 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
     deliveryTimeMinutes: 45,
     area: 'Whitefield',
     city: 'Bengaluru',
-    offer: 'Free dessert above â‚¹999',
+    offer: 'Free dessert above ₹999',
     menu: [
       { id: 'butter-prawns', name: 'Butter Prawns', description: 'Grilled prawns, garlic butter', price: 549, isVeg: false, isPopular: true, category: 'Starters', soldCount: 188 },
       { id: 'fish-curry', name: 'Bengaluru Fish Curry', description: 'Coconut base, kokum, curry leaf', price: 429, isVeg: false, isPopular: true, category: 'Curries', soldCount: 214 },
@@ -201,7 +201,7 @@ export const SEED_RESTAURANTS: SeedRestaurant[] = [
 ]
 
 /**
- * Har cuisine ke liye multiple dish images â€” taaki menu me saari dishes
+ * Har cuisine ke liye multiple dish images — taaki menu me saari dishes
  * ek jaisi na lagein. Index se rotate karte hain.
  */
 const DISH_POOLS = {
@@ -268,7 +268,7 @@ function dishPoolKey(cuisines: string[]): DishPoolKey {
   return 'default'
 }
 
-/** Pool se cyclic image â€” har dish ko alag image milti hai. */
+/** Pool se cyclic image — har dish ko alag image milti hai. */
 function dishImage(cuisines: string[], index: number): string {
   const pool: readonly string[] = DISH_POOLS[dishPoolKey(cuisines)]
   return pool[index % pool.length] ?? pool[0] ?? ''
